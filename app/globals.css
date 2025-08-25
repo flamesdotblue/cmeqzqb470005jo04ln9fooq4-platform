@@ -23,22 +23,37 @@ body {
 /***** Neon utilities *****/
 .neon-text {
   text-shadow:
-    0 0 8px rgba(0,245,255,0.9),
-    0 0 16px rgba(0,245,255,0.7),
-    0 0 32px rgba(255,0,200,0.55);
+    0 0 6px rgba(0,245,255,0.8),
+    0 0 14px rgba(0,245,255,0.6),
+    0 0 24px rgba(255,0,200,0.45);
 }
 .neon-magenta { text-shadow: 0 0 10px rgba(255,0,200,0.9), 0 0 22px rgba(255,0,200,0.7); }
+
+/***** Headline emphasis for visibility *****/
+.headline-neon {
+  color: #ffffff;
+  -webkit-text-stroke: 1px rgba(0,245,255,0.35);
+  text-shadow:
+    0 0 10px rgba(0,245,255,0.85),
+    0 0 22px rgba(0,245,255,0.65),
+    0 0 36px rgba(255,0,200,0.5),
+    0 0 56px rgba(255,0,200,0.35);
+}
 
 /***** Glitch effect *****/
 .glitch {
   position: relative;
+  display: inline-block;
+  text-rendering: optimizeLegibility;
 }
 .glitch::before,
 .glitch::after {
   content: attr(data-text);
   position: absolute;
   inset: 0;
-  mix-blend-mode: screen;
+  z-index: 0;
+  opacity: 0.9;
+  /* Avoid blend issues that can hide text on some GPUs */
 }
 .glitch::before {
   color: var(--neon-cyan);
@@ -54,6 +69,11 @@ body {
   animation: glitch 2.2s infinite linear alternate;
   filter: drop-shadow(0 0 8px rgba(255,0,200,0.8));
 }
+/* Ensure base text sits above glitch layers */
+.glitch > span {
+  position: relative;
+  z-index: 1;
+}
 
 /***** Scanlines & vignette *****/
 .scanlines {
@@ -64,7 +84,6 @@ body {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: var(--scan);
   background: repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 3px, transparent 6px);
 }
 .vignette::before {
@@ -100,7 +119,7 @@ body {
               url('https://cdn.dribbble.com/userupload/12228096/file/original-30b891d282f961e5e3e524273469b86a.png?resize=1504x1128&vertical=center');
   background-size: cover;
   background-position: center;
-  opacity: 0.18;
+  opacity: 0.12; /* lowered to improve headline contrast */
   mix-blend-mode: screen;
   filter: saturate(120%) blur(2px);
 }
@@ -128,3 +147,42 @@ body {
   box-shadow: 0 0 16px rgba(0,245,255,0.8), 0 0 32px rgba(255,0,200,0.5), inset 0 0 18px rgba(255,0,200,0.35);
 }
 .neon-btn:active { transform: translateY(1px); }
+
+/***** Tailwind extensions *****/
+@layer utilities {
+  .animate-flicker { animation: flicker 3s infinite both; }
+  .animate-glitch { animation: glitch 2.5s infinite; }
+  .animate-float { animation: float 6s ease-in-out infinite; }
+  .animate-pulseSoft { animation: pulseSoft 3s ease-in-out infinite; }
+  .animate-grid { animation: grid 18s linear infinite; }
+  .animate-hue { animation: hue 12s linear infinite; }
+}
+
+@keyframes flicker {
+  0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% { opacity: 1 }
+  20%, 21.999%, 63%, 63.999%, 65%, 69.999% { opacity: 0.5 }
+}
+@keyframes glitch {
+  0% { transform: translate(0) }
+  20% { transform: translate(-1px, 1px) skew(0.5deg) }
+  40% { transform: translate(-2px, -1px) }
+  60% { transform: translate(1px, 1px) skew(-0.5deg) }
+  80% { transform: translate(2px, -1px) }
+  100% { transform: translate(0) }
+}
+@keyframes float {
+  0%,100% { transform: translateY(0) }
+  50% { transform: translateY(-6px) }
+}
+@keyframes pulseSoft {
+  0%,100% { opacity: 0.65 }
+  50% { opacity: 1 }
+}
+@keyframes grid {
+  0% { background-position: 0 0, 0 0 }
+  100% { background-position: 200px 100px, -200px -100px }
+}
+@keyframes hue {
+  0% { filter: hue-rotate(0deg) }
+  100% { filter: hue-rotate(360deg) }
+}

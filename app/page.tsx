@@ -6,7 +6,7 @@ export default function Page() {
       <div className="bg-art" aria-hidden />
       <div className="holo-grid" aria-hidden />
       <NeonParticles />
-      <div className="absolute inset-0 bg-scanlines pointer-events-none" aria-hidden />
+      <div className="absolute inset-0 scanlines pointer-events-none" aria-hidden />
 
       <section className="relative z-10 flex min-h-screen flex-col items-center justify-center px-6">
         <div className="max-w-5xl mx-auto text-center">
@@ -17,12 +17,12 @@ export default function Page() {
 
           <h1
             data-text="Enter the Neon Net"
-            className="glitch mt-6 text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight neon-text animate-glitch"
+            className="glitch mt-6 text-white text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight animate-glitch"
           >
-            Enter the Neon Net
+            <span className="headline-neon">Enter the Neon Net</span>
           </h1>
 
-          <p className="mt-6 text-base sm:text-lg md:text-xl text-white/80 max-w-3xl mx-auto leading-relaxed">
+          <p className="mt-6 text-base sm:text-lg md:text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
             Jack into a city of rain-soaked chrome, where sentient code haunts the alleys and every signal leaves a trace.
             Explore our cyberpunk platform that fuses holographic UI, neural analytics, and neon-lit immersion.
           </p>
@@ -44,8 +44,8 @@ export default function Page() {
         </div>
 
         <div className="absolute inset-x-0 bottom-0 pointer-events-none select-none">
-          <div className="mx-auto h-32 w-[90%] max-w-5xl rounded-3xl blur-2xl opacity-60 animate-hue" style={{
-            background: 'radial-gradient(60% 60% at 50% 50%, rgba(0,245,255,0.35) 0%, rgba(255,0,200,0.25) 45%, transparent 70%)'
+          <div className="mx-auto h-32 w-[90%] max-w-5xl rounded-3xl blur-2xl opacity-70 animate-hue" style={{
+            background: 'radial-gradient(60% 60% at 50% 50%, rgba(0,245,255,0.42) 0%, rgba(255,0,200,0.28) 45%, transparent 70%)'
           }} />
         </div>
       </section>
