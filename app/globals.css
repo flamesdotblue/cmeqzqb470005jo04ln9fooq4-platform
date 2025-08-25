@@ -53,7 +53,6 @@ body {
   inset: 0;
   z-index: 0;
   opacity: 0.9;
-  /* Avoid blend issues that can hide text on some GPUs */
 }
 .glitch::before {
   color: var(--neon-cyan);
@@ -69,16 +68,10 @@ body {
   animation: glitch 2.2s infinite linear alternate;
   filter: drop-shadow(0 0 8px rgba(255,0,200,0.8));
 }
-/* Ensure base text sits above glitch layers */
-.glitch > span {
-  position: relative;
-  z-index: 1;
-}
+.glitch > span { position: relative; z-index: 1; }
 
 /***** Scanlines & vignette *****/
-.scanlines {
-  position: relative;
-}
+.scanlines { position: relative; }
 .scanlines::after {
   content: '';
   position: absolute;
@@ -119,7 +112,7 @@ body {
               url('https://cdn.dribbble.com/userupload/12228096/file/original-30b891d282f961e5e3e524273469b86a.png?resize=1504x1128&vertical=center');
   background-size: cover;
   background-position: center;
-  opacity: 0.12; /* lowered to improve headline contrast */
+  opacity: 0.12;
   mix-blend-mode: screen;
   filter: saturate(120%) blur(2px);
 }
@@ -147,6 +140,33 @@ body {
   box-shadow: 0 0 16px rgba(0,245,255,0.8), 0 0 32px rgba(255,0,200,0.5), inset 0 0 18px rgba(255,0,200,0.35);
 }
 .neon-btn:active { transform: translateY(1px); }
+
+/***** Glass & card utilities for bento *****/
+.glass {
+  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+  backdrop-filter: blur(10px) saturate(120%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+}
+.card-neon {
+  position: relative;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03), 0 0 0 0 rgba(0,245,255,0);
+  transition: box-shadow 200ms ease, transform 200ms ease, border-color 200ms ease;
+}
+.card-neon:hover {
+  border-color: rgba(0,245,255,0.5);
+  box-shadow: 0 0 18px rgba(0,245,255,0.35), 0 0 42px rgba(255,0,200,0.25);
+  transform: translateY(-2px);
+}
+.card-gradient {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(60% 60% at 10% 10%, rgba(0,245,255,0.15), transparent 60%),
+              radial-gradient(60% 60% at 90% 90%, rgba(255,0,200,0.12), transparent 60%);
+  opacity: 0.9;
+  pointer-events: none;
+}
 
 /***** Tailwind extensions *****/
 @layer utilities {
