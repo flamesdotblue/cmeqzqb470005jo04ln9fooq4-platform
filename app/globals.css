@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-start: #05040b;
+  --bg-end: #0a0620;
+  --neon-cyan: #00F5FF;
+  --neon-magenta: #FF00C8;
+  --neon-pink: #FF4DDE;
+  --neon-purple: #6C00FF;
+}
+
+html, body { height: 100%; }
+
+body {
+  background: radial-gradient(60% 60% at 70% 30%, rgba(0,245,255,0.06) 0%, transparent 70%),
+              radial-gradient(70% 70% at 20% 80%, rgba(255,0,200,0.06) 0%, transparent 70%),
+              linear-gradient(180deg, var(--bg-start), var(--bg-end));
+  color: white;
+}
+
+/***** Neon utilities *****/
+.neon-text {
+  text-shadow:
+    0 0 8px rgba(0,245,255,0.9),
+    0 0 16px rgba(0,245,255,0.7),
+    0 0 32px rgba(255,0,200,0.55);
+}
+.neon-magenta { text-shadow: 0 0 10px rgba(255,0,200,0.9), 0 0 22px rgba(255,0,200,0.7); }
+
+/***** Glitch effect *****/
+.glitch {
+  position: relative;
+}
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  mix-blend-mode: screen;
+}
+.glitch::before {
+  color: var(--neon-cyan);
+  transform: translate(2px,0);
+  clip-path: polygon(0 0, 100% 0, 100% 45%, 0 50%);
+  animation: glitch 3s infinite linear alternate-reverse;
+  filter: drop-shadow(0 0 8px rgba(0,245,255,0.8));
+}
+.glitch::after {
+  color: var(--neon-magenta);
+  transform: translate(-2px,0);
+  clip-path: polygon(0 55%, 100% 50%, 100% 100%, 0 100%);
+  animation: glitch 2.2s infinite linear alternate;
+  filter: drop-shadow(0 0 8px rgba(255,0,200,0.8));
+}
+
+/***** Scanlines & vignette *****/
+.scanlines {
+  position: relative;
+}
+.scanlines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: var(--scan);
+  background: repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 3px, transparent 6px);
+}
+.vignette::before {
+  content: '';
+  position: absolute;
+  inset: -40px;
+  pointer-events: none;
+  background: radial-gradient(80% 80% at 50% 50%, transparent 60%, rgba(0,0,0,0.5) 100%);
+}
+
+/***** Holographic grid *****/
+.holo-grid {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(transparent 0 0),
+    linear-gradient(90deg, rgba(0,245,255,0.12) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(255,0,200,0.12) 1px, transparent 1px);
+  background-size: 100% 100%, 40px 40px, 40px 40px;
+  transform: perspective(800px) rotateX(55deg) translateY(-12%);
+  transform-origin: top center;
+  animation: grid 20s linear infinite;
+  filter: drop-shadow(0 0 10px rgba(0,245,255,0.25)) drop-shadow(0 0 14px rgba(255,0,200,0.2));
+  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 20%, black 60%);
+}
+
+/***** Background art (inspired by linked style) *****/
+.bg-art {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(18% 18% at 80% 20%, rgba(0,245,255,0.25) 0%, transparent 60%),
+              radial-gradient(22% 22% at 20% 30%, rgba(255,0,200,0.25) 0%, transparent 60%),
+              url('https://cdn.dribbble.com/userupload/12228096/file/original-30b891d282f961e5e3e524273469b86a.png?resize=1504x1128&vertical=center');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.18;
+  mix-blend-mode: screen;
+  filter: saturate(120%) blur(2px);
+}
+
+/***** Neon Button *****/
+.neon-btn {
+  position: relative;
+  border: 1px solid rgba(0,245,255,0.6);
+  background: rgba(10, 12, 20, 0.6);
+  color: #E6FDFF;
+  text-shadow: 0 0 6px rgba(0,245,255,0.9);
+  box-shadow: 0 0 12px rgba(0,245,255,0.5), inset 0 0 12px rgba(255,0,200,0.25);
+}
+.neon-btn::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: radial-gradient(100% 100% at 0% 0%, rgba(0,245,255,0.7), transparent 70%),
+              radial-gradient(100% 100% at 100% 100%, rgba(255,0,200,0.6), transparent 70%);
+  filter: blur(8px);
+  z-index: -1;
+}
+.neon-btn:hover {
+  box-shadow: 0 0 16px rgba(0,245,255,0.8), 0 0 32px rgba(255,0,200,0.5), inset 0 0 18px rgba(255,0,200,0.35);
+}
+.neon-btn:active { transform: translateY(1px); }
